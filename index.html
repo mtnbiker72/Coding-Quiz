@@ -6,27 +6,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Coding Quiz!</title>
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 
 <body>
   <div class="container">
     <h1>Coding Quiz</h1>
     <div class="enter-to-start"> 
-        <p>Press Enter to start the game!</p>
-    </div>
-    <div class="start-quiz">
+        <h2>Welcome to the coding game!</h2>
+        <p>Press Enter to start the game</p>
         <button id="enter-button">Enter</button>
     </div> 
     <div class="scores">
-      <span id ="user-score">User Score: 0</span>
+      <span id ="user-score">0</span>
       <span id ="total-score">/ 3 </span>
     </div>
 
     <div class="question-text"></div>
     <div id="options">
-      <button class="btn" id="True">True</button>
-      <button class="btn" id="False">False</button>
+      <ul>
+      <li><button class="btn" id="one"></button></li> 
+      <li><button class="btn" id="two"></button></li> 
+      <li><button class="btn" id="three"></button></li> 
+      <li><button class="btn" id="four"></button></li> 
+      </ul>
     </div>
     </div class=navigate>
         <!-- <button class="btn" id="restart">Restart</button> -->
@@ -35,6 +38,6 @@
         <button class="btn" id="submit">Submit</button>
   </div>
 
-  <script src="./script.js"></script>
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>

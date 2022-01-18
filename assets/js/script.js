@@ -2,40 +2,45 @@ const enterButton = document.querySelector("#enter-button");
 const previousButton = document.querySelector("#prev");
 const nextButton = document.querySelector("#next");
 const submitButton = document.querySelector("#submit");
-const trueButton = document.querySelector("#True");
-const falseButton = document.querySelector("#False");
+const oneButton = document.querySelector("#one");
+const twoButton = document.querySelector("#two");
+const threeButton = document.querySelector("#three");
+const fourButton = document.querySelector("#four");
+const options = document.querySelector("#options");
+const navifate = document.querySelector(".navigate");
+const scores = document.querySelector(".scores");
+const container = document.querySelector(".container");
 var enterToStart = document.querySelector(".enter-to-start");
 var userScore = document.querySelector("#user-score");
 var totalScore = document.querySelector("#total-score");
 var questionText = document.querySelector(".question-text");
 var timer = document.querySelector(".timer");
 
-let currentQuestion = 0;
+var currentQuestion = 0;
 var score = 0;
 
-let questions = [
+var questions = [
   {
     question: "What is javascript",
-    answers: [
-      { option: "Javascript isn't for dummies", answer: true },
-      { option: "Javascript is for dummies", answer: false }
-    ]
+    answers: ["A funny way to say tea", "An ancient middle eastern language", "Computer stuff", "The words on a bag of coffee"],
+    answer: 3
   },
   {
-    question: "What is ble blah blue",
-    answers: [
-      { option: "Jello", answer: false },
-      { option: "My made up word", answer: true }
-    ]
+    question: "What HTML element do we put JavaScript",
+    answers: ["h1", "scipting", "script", "body"],
+    answer: 3
   },
   {
-    question: "What is bedtime",
-    answers: [
-      { option: "Earlier the better", answer: true },
-      { option: "Later is better", answer: false }
-    ]
-  }
-]
+    question: "Which is the correct syntax",
+    answers: ["Math.floor(Math.random()", "math.floor(math.random()", "Math.ceiling(random)", "Math.random.floor"],
+    answer: 1
+  },
+  {
+    question: "Where does console.log get logged to?",
+    answers: ["log directory on your computer", "web console", "it doesn't get logged", "output to the screen"],
+    answer: 2
+  }  
+];
 
 previousButton.addEventListener("click", prev);
 nextButton.addEventListener("click", next);
@@ -43,38 +48,65 @@ submitButton.addEventListener("click", submit);
 enterButton.addEventListener("click", startQuiz);
 
 function startQuiz() {
-  trueButton.classList.remove("hide");
-  falseButton.classList.remove("hide");
+  options.classList.remove("hide");
   questionText.classList.remove("hide");
-  userScore.classList.remove("hide");
-  totalScore.classList.remove("hide");
+  scores.classList.remove("hide");
   enterToStart.classList.add("hide");
-  enterButton.classList.add("hide");
   totalScore.classList.remove("hide");
 
   currentQuestion: 0;
   questionText.innerHTML = questions[currentQuestion].question;
-  trueButton.innerHTML = questions[currentQuestion].answers[0].option;
-  trueButton.onclick = () => {
-    let ano = 0;
-    if (questions[currentQuestion].answers[ano].answer) {
+  oneButton.innerHTML = questions[currentQuestion].answers[0];
+  oneButton.onclick = () => {
+    if (questions[currentQuestion].answer === 1) {
       score++;
     }
     userScore.innerHTML = score;
-    if (currentQuestion < 2) {
+    if (currentQuestion < questions.length - 1) {
       next();
+    }
+    else {
+      showResults();
     }
   }
 
-  falseButton.innerHTML = questions[currentQuestion].answers[1].option;
-  falseButton.onclick = () => {
-    let ano = 1;
-    if (questions[currentQuestion].answers[ano].answer) {
+  twoButton.innerHTML = questions[currentQuestion].answers[1];
+  twoButton.onclick = () => {
+    if (questions[currentQuestion].answer === 2) {
       score++;
     }
     userScore.innerHTML = score;
-    if (currentQuestion < 2) {
+    if (currentQuestion < questions.length - 1) {
       next();
+    }
+    else {
+      showResults();
+    }
+  }
+  threeButton.innerHTML = questions[currentQuestion].answers[2];
+  threeButton.onclick = () => {
+    if (questions[currentQuestion].answer === 3) {
+      score++;
+    }
+    userScore.innerHTML = score;
+    if (currentQuestion < questions.length - 1) {
+      next();
+    }
+    else {
+      showResults();
+    }
+  }
+  fourButton.innerHTML = questions[currentQuestion].answers[3];
+  fourButton.onclick = () => {
+    if (questions[currentQuestion].answer === 4) {
+      score++;
+    }
+    userScore.innerHTML = score;
+    if (currentQuestion < questions.length - 1) {
+      next();
+    }
+    else {
+      showResults();
     }
   }
 }
@@ -82,41 +114,25 @@ function startQuiz() {
 function next() {
   currentQuestion++;
   questionText.innerHTML = questions[currentQuestion].question;
-  trueButton.innerHTML = questions[currentQuestion].answers[0].option;
-  trueButton.onclick = () => {
-    let ano = 0;
-    if (questions[currentQuestion].answers[ano].answer) {
-      score++;
-    }
-    userScore.innerHTML = score;
-    if (currentQuestion < 2) {
-      next();
-    }
-  }
-
-  falseButton.innerHTML = questions[currentQuestion].answers[1].option;
-  falseButton.onclick = () => {
-    let ano = 1;
-    if (questions[currentQuestion].answers[ano].answer) {
-      score++;
-    }
-    userScore.innerHTML = score;
-    if (currentQuestion < 2) {
-      next();
-    }
-  }
+  oneButton.innerHTML = questions[currentQuestion].answers[0];
+  twoButton.innerHTML = questions[currentQuestion].answers[1];
+  threeButton.innerHTML = questions[currentQuestion].answers[2];
+  fourButton.innerHTML = questions[currentQuestion].answers[3];
 }
-beginQuestions();
 
-function beginQuestions() {
-  nextButton.classList.add("hide");
+function showResults() {
+  container.classList.add("hide");
+
+}
+beginquestions();
+
+function beginquestions() {
+  options.classList.add("hide");
   previousButton.classList.add("hide");
   submitButton.classList.add("hide");
-  trueButton.classList.add("hide");
-  falseButton.classList.add("hide");
+  nextButton.classList.add("hide");
   questionText.classList.add("hide");
-  userScore.classList.add("hide");
-  totalScore.classList.add("hide");
+  scores.classList.add("hide");
 
 }
 
@@ -124,8 +140,7 @@ function submit() {
   nextButton.classList.add("hide");
   previousButton.classList.add("hide");
   submitButton.classList.add("hide");
-  trueButton.classList.add("hide");
-  falseButton.classList.add("hide");
+  options.classList.add("hide");
   questionText.innerHTML = "Way to Go you Genious";
 }
 
@@ -152,20 +167,3 @@ function displayMessage() {
     clickNext();
   }
 }
-
-
-// // Start Quiz
-
-// // Start timer for each question
-
-// // Ask question and give options
-
-// // Verify and report answer
-
-// // Store score
-
-// // At the end of the game, enter initials 
-
-// // Show high scores
-
-// submitButton.addEventListener("click", startGame);
