@@ -1,0 +1,30 @@
+body {
+    background-color: yellow;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    align-items: center;
+    text-align: center;
+}
+
+.scores {
+    font-weight: bold;
+    color: green;
+}
+.navigatre {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.btn {
+    font-weight: bold;
+    background: puple;
+    cursor: pointer;
+}
+
+.hide {
+    display:none;
+}
