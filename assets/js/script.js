@@ -22,6 +22,7 @@ var enterInitials = document.querySelector(".enter-initials");
 var currentQuestion = 0;
 var score = 0;
 var highScore = document.querySelector(".high-score");
+var number1Score = document.querySelector("#number1-score");
 var submitInitials = document.querySelector(".submit-initials");
 var resetGameButton = document.querySelector("#reset-button");
 var restartGameButton = document.querySelector("#restart-game-button");
@@ -88,7 +89,6 @@ submitInitials.addEventListener("click", function(event) {
   });
   // Store the scores in local storage
   localStorage.setItem("allScores", JSON.stringify(sortedScores));
-  var number1Score = document.querySelector("#number1-score");
   // Display the top 5 scores and show them on different lines
   number1Score.innerHTML = "Here are the top 5 scores: " + sortedScores.slice(0,5).map((item) => { 
     return "<br>" + item.initials + " scored " + item.userScore;
@@ -98,6 +98,7 @@ submitInitials.addEventListener("click", function(event) {
 
 function resetGame() {
   localStorage.clear();
+  number1Score.innerHTML = "";
 }
 
 beginquestions();
