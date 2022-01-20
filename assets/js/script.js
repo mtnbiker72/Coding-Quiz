@@ -1,5 +1,4 @@
 const enterButton = document.querySelector("#enter-button");
-const previousButton = document.querySelector("#prev");
 const nextButton = document.querySelector("#next");
 const submitButton = document.querySelector("#submit");
 const oneButton = document.querySelector("#one");
@@ -15,9 +14,18 @@ var userScore = document.querySelector("#user-score");
 var totalScore = document.querySelector("#total-score");
 var questionText = document.querySelector(".question-text");
 var timer = document.querySelector(".timer");
-
+var scoreBoard = document.querySelector(".score-board");
+var results = document.querySelector(".results");
+var correctAnswer = document.querySelector("#correct-answer");
+var initials = document.querySelector("#initials");
+var enterInitials = document.querySelector(".enter-initials");
 var currentQuestion = 0;
 var score = 0;
+var highScore = document.querySelector(".high-score");
+var submitInitials = document.querySelector(".submit-initials");
+var resetGameButton = document.querySelector("#reset-button");
+var restartGameButton = document.querySelector("#restart-game-button");
+var resetOrStart = document.querySelector("#reset-or-start");
 
 var questions = [
   {
@@ -42,75 +50,11 @@ var questions = [
   }  
 ];
 
-previousButton.addEventListener("click", prev);
-nextButton.addEventListener("click", next);
 submitButton.addEventListener("click", submit);
 enterButton.addEventListener("click", startQuiz);
+resetGameButton.addEventListener("click", resetGame);
 
-function startQuiz() {
-  options.classList.remove("hide");
-  questionText.classList.remove("hide");
-  scores.classList.remove("hide");
-  enterToStart.classList.add("hide");
-  totalScore.classList.remove("hide");
-
-  currentQuestion: 0;
-  questionText.innerHTML = questions[currentQuestion].question;
-  oneButton.innerHTML = questions[currentQuestion].answers[0];
-  oneButton.onclick = () => {
-    if (questions[currentQuestion].answer === 1) {
-      score++;
-    }
-    userScore.innerHTML = score;
-    if (currentQuestion < questions.length - 1) {
-      next();
-    }
-    else {
-      showResults();
-    }
-  }
-
-  twoButton.innerHTML = questions[currentQuestion].answers[1];
-  twoButton.onclick = () => {
-    if (questions[currentQuestion].answer === 2) {
-      score++;
-    }
-    userScore.innerHTML = score;
-    if (currentQuestion < questions.length - 1) {
-      next();
-    }
-    else {
-      showResults();
-    }
-  }
-  threeButton.innerHTML = questions[currentQuestion].answers[2];
-  threeButton.onclick = () => {
-    if (questions[currentQuestion].answer === 3) {
-      score++;
-    }
-    userScore.innerHTML = score;
-    if (currentQuestion < questions.length - 1) {
-      next();
-    }
-    else {
-      showResults();
-    }
-  }
-  fourButton.innerHTML = questions[currentQuestion].answers[3];
-  fourButton.onclick = () => {
-    if (questions[currentQuestion].answer === 4) {
-      score++;
-    }
-    userScore.innerHTML = score;
-    if (currentQuestion < questions.length - 1) {
-      next();
-    }
-    else {
-      showResults();
-    }
-  }
-}
-
+// Advances to the next question and sets the answers to correspond with the buttons
 function next() {
   currentQuestion++;
   questionText.innerHTML = questions[currentQuestion].question;
@@ -120,25 +64,53 @@ function next() {
   fourButton.innerHTML = questions[currentQuestion].answers[3];
 }
 
+// Hide the rest of the screen and show results
 function showResults() {
   container.classList.add("hide");
-
+  results.classList.remove("hide");
+  scoreBoard.innerHTML = "Your final score is: " + score;
 }
+
+submitInitials.addEventListener("click", function(event) {
+  event.preventDefault();
+  var scoreAndInitials = {
+    userScore: score,
+    initials: initials.value
+  }
+  var allScores = JSON.parse(localStorage.getItem("allScores"));
+  if (!allScores ) {
+    allScores = [];
+  }
+  // Sort the scores from highest to lowest
+  allScores.push(scoreAndInitials);
+  var sortedScores = allScores.sort((a,b) => {
+    return b.userScore - a.userScore;
+  });
+  // Store the scores in local storage
+  localStorage.setItem("allScores", JSON.stringify(sortedScores));
+  var number1Score = document.querySelector("#number1-score");
+  // Display the top 5 scores and show them on different lines
+  number1Score.innerHTML = "Here are the top 5 scores: " + sortedScores.slice(0,5).map((item) => { 
+    return "<br>" + item.initials + " scored " + item.userScore;
+  }).join("");
+  restartGameButton.addEventListener("click", startQuiz);
+});
+
+function resetGame() {
+  localStorage.clear();
+}
+
 beginquestions();
 
 function beginquestions() {
   options.classList.add("hide");
-  previousButton.classList.add("hide");
   submitButton.classList.add("hide");
-  nextButton.classList.add("hide");
-  questionText.classList.add("hide");
   scores.classList.add("hide");
-
+  questionText.classList.add("hide");
+  results.classList.add("hide");
 }
 
 function submit() {
-  nextButton.classList.add("hide");
-  previousButton.classList.add("hide");
   submitButton.classList.add("hide");
   options.classList.add("hide");
   questionText.innerHTML = "Way to Go you Genious";
@@ -156,14 +128,86 @@ function startTimer() {
     else {
       timer.textContent = "";
       clearInterval;
-      displayMessage();
     }
   }, 1000);
 }
 
-function displayMessage() {
-  if (document.getElementById("correct").checked) {
-    alert("Damn you're good!");
-    clickNext();
+function startQuiz() {
+  options.classList.remove("hide");
+  questionText.classList.remove("hide");
+  scores.classList.remove("hide");
+  enterToStart.classList.add("hide");
+  totalScore.classList.remove("hide");
+
+  currentQuestion: 0;
+  questionText.innerHTML = questions[currentQuestion].question;
+  oneButton.innerHTML = questions[currentQuestion].answers[0];
+  oneButton.onclick = () => {
+    if (questions[currentQuestion].answer === 1) {
+      score++;
+      correctAnswer.innerHTML = "You got that right!"
+    }
+    else {
+      correctAnswer.innerHTML = "Wrong!"
+    }
+    userScore.innerHTML = score;
+    if (currentQuestion < questions.length - 1) {
+      next();
+    }
+    else {
+      showResults();
+    }
+  }
+
+  twoButton.innerHTML = questions[currentQuestion].answers[1];
+  twoButton.onclick = () => {
+    if (questions[currentQuestion].answer === 2) {
+      score++;
+      correctAnswer.innerHTML = "You got that right!"
+    }
+    else {
+      correctAnswer.innerHTML = "Wrong!"
+    }
+    userScore.innerHTML = score;
+    if (currentQuestion < questions.length - 1) {
+      next();
+    }
+    else {
+      showResults();
+    }
+  }
+  threeButton.innerHTML = questions[currentQuestion].answers[2];
+  threeButton.onclick = () => {
+    if (questions[currentQuestion].answer === 3) {
+      score++;
+      correctAnswer.innerHTML = "You got that right!"
+    }
+    else {
+      correctAnswer.innerHTML = "Wrong!"
+    }
+    userScore.innerHTML = score;
+    if (currentQuestion < questions.length - 1) {
+      next();
+    }
+    else {
+      showResults();
+    }
+  }
+  fourButton.innerHTML = questions[currentQuestion].answers[3];
+  fourButton.onclick = () => {
+    if (questions[currentQuestion].answer === 4) {
+      score++;
+      correctAnswer.innerHTML = "You got that right!"
+    }
+    else {
+      correctAnswer.innerHTML = "Wrong!"
+    }
+    userScore.innerHTML = score;
+    if (currentQuestion < questions.length - 1) {
+      next();
+    }
+    else {
+      showResults();
+    }
   }
 }

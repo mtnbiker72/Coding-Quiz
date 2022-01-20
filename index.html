@@ -18,8 +18,9 @@
         <button id="enter-button">Enter</button>
     </div> 
     <div class="scores">
+      <span>Your Score: </span>
       <span id ="user-score">0</span>
-      <span id ="total-score">/ 3 </span>
+      <span id ="total-score">/ 4 </span>
     </div>
 
     <div class="question-text"></div>
@@ -30,12 +31,29 @@
       <li><button class="btn" id="three"></button></li> 
       <li><button class="btn" id="four"></button></li> 
       </ul>
+      <div id="correct-answer"></div>
     </div>
     </div class=navigate>
-        <!-- <button class="btn" id="restart">Restart</button> -->
-        <button class="btn" id="prev">Previous</button>
-        <button class="btn" id="next">Next</button>
         <button class="btn" id="submit">Submit</button>
+  </div>
+  <div class="results">
+    <span class="score-board"></span>
+    <div class="enter-initials">
+      <label for="initials">Please enter your initials: </label>
+      <input type=text id="initials">
+      <button class="btn submit-initials">Submit</button>
+    </div>
+    <div class="high-score">
+      <ul>
+        <span id="number1-score"></span>
+      </ul>
+    </div>
+    <div class="reset-or-start"> 
+      <p>Press the reset button to clear the scores: </p>
+      <p>or press the start the game again</p>
+      <button id="reset-button">Reset</button>
+      <button id="restart-game-button">Start Game</button>
+    </div>
   </div>
 
   <script src="./assets/js/script.js"></script>

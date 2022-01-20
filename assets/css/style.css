@@ -1,8 +1,8 @@
 body {
-    background-color: yellow;
-    display: flex;
+    background-color: rgb(113, 113, 185);
     align-items: center;
     justify-content: center;
+    font-size: 30px;
 }
 
 .container {
@@ -12,24 +12,44 @@ body {
 
 .scores {
     font-weight: bold;
-    color: green;
+    color: black;
 }
-.navigatre {
+.navigate {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .btn {
     font-weight: bold;
-    background: puple;
+    background: lightblue;
     cursor: pointer;
 }
 
+.results {
+    text-align: center;
+}
+.question-text {
+    text-align: left;
+    padding-left: 250px;
+    padding-top: 20px;
+}
+.btn:hover {
+    background-color: lightgray;
+}
 .hide {
     display:none;
 }
-
+ul {
+    text-align: left;
+    padding-left: 250px;
+}
 li {
+    display: absolute;
     text-align: left;
     list-style-type: none;
+    font-size: 24px;
+}
+
+.score-board {
+    font-size: 40px;
 }
