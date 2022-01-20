@@ -12,30 +12,32 @@
 <body>
   <div class="container">
     <h1>Coding Quiz</h1>
-    <div class="enter-to-start"> 
-        <h2>Welcome to the coding game!</h2>
-        <p>Press Enter to start the game</p>
-        <button id="enter-button">Enter</button>
-    </div> 
+    <div class="enter-to-start">
+      <h2>Welcome to the coding game!</h2>
+      <p>Press Enter to start the game</p>
+      <button id="enter-button">Enter</button>
+    </div>
     <div class="scores">
       <span>Your Score: </span>
-      <span id ="user-score">0</span>
-      <span id ="total-score">/ 4 </span>
+      <span id="user-score">0</span>
+      <span id="total-score">/ 4 </span>
     </div>
-
+    <div class="timer"> </div>
     <div class="question-text"></div>
     <div id="options">
       <ul>
-      <li><button class="btn" id="one"></button></li> 
-      <li><button class="btn" id="two"></button></li> 
-      <li><button class="btn" id="three"></button></li> 
-      <li><button class="btn" id="four"></button></li> 
+        <li><button class="btn" id="one"></button></li>
+        <li><button class="btn" id="two"></button></li>
+        <li><button class="btn" id="three"></button></li>
+        <li><button class="btn" id="four"></button></li>
       </ul>
       <div id="correct-answer"></div>
     </div>
-    </div class=navigate>
-        <button class="btn" id="submit">Submit</button>
+    <div>
+      <button class="btn" id="submit">Submit</button>
+    </div>
   </div>
+
   <div class="results">
     <span class="score-board"></span>
     <div class="enter-initials">
@@ -48,9 +50,9 @@
         <span id="number1-score"></span>
       </ul>
     </div>
-    <div class="reset-or-start"> 
-      <p>Press the reset button to clear the scores: </p>
-      <p>or press the start the game again</p>
+    <div class="reset-or-start">
+      <p>Press the reset button to clear the scores</p>
+      <p>or press start game to replay</p>
       <button id="reset-button">Reset</button>
       <button id="restart-game-button">Start Game</button>
     </div>
@@ -58,4 +60,5 @@
 
   <script src="./assets/js/script.js"></script>
 </body>
+
 </html>

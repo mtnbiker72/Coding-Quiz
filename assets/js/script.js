@@ -1,12 +1,10 @@
 const enterButton = document.querySelector("#enter-button");
-const nextButton = document.querySelector("#next");
 const submitButton = document.querySelector("#submit");
 const oneButton = document.querySelector("#one");
 const twoButton = document.querySelector("#two");
 const threeButton = document.querySelector("#three");
 const fourButton = document.querySelector("#four");
 const options = document.querySelector("#options");
-const navifate = document.querySelector(".navigate");
 const scores = document.querySelector(".scores");
 const container = document.querySelector(".container");
 var enterToStart = document.querySelector(".enter-to-start");
@@ -26,7 +24,7 @@ var number1Score = document.querySelector("#number1-score");
 var submitInitials = document.querySelector(".submit-initials");
 var resetGameButton = document.querySelector("#reset-button");
 var restartGameButton = document.querySelector("#restart-game-button");
-var resetOrStart = document.querySelector("#reset-or-start");
+var resetOrStart = document.querySelector(".reset-or-start");
 
 var questions = [
   {
@@ -54,6 +52,7 @@ var questions = [
 submitButton.addEventListener("click", submit);
 enterButton.addEventListener("click", startQuiz);
 resetGameButton.addEventListener("click", resetGame);
+restartGameButton.addEventListener("click", startQuiz);
 
 // Advances to the next question and sets the answers to correspond with the buttons
 function next() {
@@ -68,6 +67,7 @@ function next() {
 // Hide the rest of the screen and show results
 function showResults() {
   container.classList.add("hide");
+  resetOrStart.classList.add("hide");
   results.classList.remove("hide");
   scoreBoard.innerHTML = "Your final score is: " + score;
 }
@@ -90,9 +90,11 @@ submitInitials.addEventListener("click", function(event) {
   // Store the scores in local storage
   localStorage.setItem("allScores", JSON.stringify(sortedScores));
   // Display the top 5 scores and show them on different lines
-  number1Score.innerHTML = "Here are the top 5 scores: " + sortedScores.slice(0,5).map((item) => { 
+  number1Score.innerHTML = "Here are the top scores: " + sortedScores.slice(0,5).map((item) => { 
     return "<br>" + item.initials + " scored " + item.userScore;
   }).join("");
+  resetOrStart.classList.remove("hide");
+  enterInitials.classList.add("hide");
   restartGameButton.addEventListener("click", startQuiz);
 });
 
@@ -120,7 +122,7 @@ function submit() {
 
 // Start a game timer
 function startTimer() {
-  var timeLeft = 10;
+  var timeLeft = 30;
   setInterval(function () {
     if (timeLeft > 1) {
       timer.textContent = timeLeft + " seconds remaining";
@@ -129,11 +131,13 @@ function startTimer() {
     else {
       timer.textContent = "";
       clearInterval;
+      showResults();
     }
   }, 1000);
 }
 
 function startQuiz() {
+  startTimer();
   options.classList.remove("hide");
   questionText.classList.remove("hide");
   scores.classList.remove("hide");

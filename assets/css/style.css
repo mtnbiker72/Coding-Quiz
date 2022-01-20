@@ -33,6 +33,10 @@ body {
     padding-left: 250px;
     padding-top: 20px;
 }
+
+.timer {
+    text-align: right;
+}
 .btn:hover {
     background-color: lightgray;
 }
