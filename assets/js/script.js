@@ -4,7 +4,7 @@ const oneButton = document.querySelector("#one");
 const twoButton = document.querySelector("#two");
 const threeButton = document.querySelector("#three");
 const fourButton = document.querySelector("#four");
-const options = document.querySelector("#options");
+const options = document.querySelector(".options");
 const scores = document.querySelector(".scores");
 const container = document.querySelector(".container");
 var enterToStart = document.querySelector(".enter-to-start");
@@ -14,7 +14,7 @@ var questionText = document.querySelector(".question-text");
 var timer = document.querySelector(".timer");
 var scoreBoard = document.querySelector(".score-board");
 var results = document.querySelector(".results");
-var correctAnswer = document.querySelector("#correct-answer");
+var correctAnswer = document.querySelector(".correct-answer");
 var initials = document.querySelector("#initials");
 var enterInitials = document.querySelector(".enter-initials");
 var currentQuestion = 0;
@@ -26,33 +26,39 @@ var resetGameButton = document.querySelector("#reset-button");
 var restartGameButton = document.querySelector("#restart-game-button");
 var resetOrStart = document.querySelector(".reset-or-start");
 
+// Questions for the quiz
 var questions = [
   {
-    question: "What is javascript",
-    answers: ["A funny way to say tea", "An ancient middle eastern language", "Computer stuff", "The words on a bag of coffee"],
-    answer: 3
-  },
-  {
-    question: "What HTML element do we put JavaScript",
-    answers: ["h1", "scipting", "script", "body"],
-    answer: 3
-  },
-  {
-    question: "Which is the correct syntax",
-    answers: ["Math.floor(Math.random()", "math.floor(math.random()", "Math.ceiling(random)", "Math.random.floor"],
+    question: "1. What is JavaScript function",
+    answers: ["a. A block of JavaScript code that is executed when called", "b. Similar to a junction", "c. Compiles java code", "d. Removes stains from laundry"],
     answer: 1
   },
   {
-    question: "Where does console.log get logged to?",
-    answers: ["log directory on your computer", "web console", "it doesn't get logged", "output to the screen"],
+    question: "2. In HTML, JavaScript is inserted between what tags?",
+    answers: ["a. h1", "b. scipting", "c. script", "d. body"],
+    answer: 3
+  },
+  {
+    question: "3. Which is the correct syntax",
+    answers: ["a. Math.floor(Math.random()", "b. math.floor(math.random()", "c. Math.ceiling(random)", "d. Math.random.floor"],
+    answer: 1
+  },
+  {
+    question: "4. Where does console.log get logged to?",
+    answers: ["a. log directory on your computer", "b. browser console", "c. it doesn't get logged", "d. output to the screen"],
     answer: 2
-  }  
+  },
+  {
+    question: "5. What is JavaScript?",
+    answers: ["a. A funny way to say tea", "b. An ancient middle eastern language", "c. A programming language", "d. The words on a bag of coffee"],
+    answer: 3
+  }    
 ];
 
 submitButton.addEventListener("click", submit);
 enterButton.addEventListener("click", startQuiz);
 resetGameButton.addEventListener("click", resetGame);
-restartGameButton.addEventListener("click", startQuiz);
+restartGameButton.addEventListener("click", restartGame);
 
 // Advances to the next question and sets the answers to correspond with the buttons
 function next() {
@@ -66,12 +72,18 @@ function next() {
 
 // Hide the rest of the screen and show results
 function showResults() {
-  container.classList.add("hide");
+  stopTimer();
+  questionText.classList.add("hide");
+  options.classList.add("hide");
+  scores.classList.add("hide");
+  enterToStart.classList.add("hide");
   resetOrStart.classList.add("hide");
   results.classList.remove("hide");
+  enterInitials.classList.remove("hide");
   scoreBoard.innerHTML = "Your final score is: " + score;
 }
 
+// Submit your initials and store score in local storage
 submitInitials.addEventListener("click", function(event) {
   event.preventDefault();
   var scoreAndInitials = {
@@ -95,35 +107,35 @@ submitInitials.addEventListener("click", function(event) {
   }).join("");
   resetOrStart.classList.remove("hide");
   enterInitials.classList.add("hide");
+  timer.classList.add("hide");
   restartGameButton.addEventListener("click", startQuiz);
+  score = 0;
+  userScore.innerHTML = "0";
 });
 
+// Clear local storage and the screen
 function resetGame() {
   localStorage.clear();
   number1Score.innerHTML = "";
+  scoreBoard.classList.add("hide");
+  timer.classList.add("hide");
 }
 
-beginquestions();
-
-function beginquestions() {
-  options.classList.add("hide");
-  submitButton.classList.add("hide");
-  scores.classList.add("hide");
-  questionText.classList.add("hide");
-  results.classList.add("hide");
+function restartGame() {
+  timer.classList.remove("hide");
+  stopTimer();
+  startQuiz();
 }
 
-function submit() {
-  submitButton.classList.add("hide");
-  options.classList.add("hide");
-  questionText.innerHTML = "Way to Go you Genious";
+function stopTimer() {
+  clearInterval(timerID);
 }
-
+var timerID;
 
 // Start a game timer
 function startTimer() {
   var timeLeft = 30;
-  setInterval(function () {
+  timerID = setInterval(function () {
     if (timeLeft > 1) {
       timer.textContent = timeLeft + " seconds remaining";
       timeLeft--;
@@ -134,26 +146,30 @@ function startTimer() {
       showResults();
     }
   }, 1000);
+  timer.classList.remove("hide"); 
 }
+
 
 function startQuiz() {
   startTimer();
   options.classList.remove("hide");
+  results.classList.add("hide");
   questionText.classList.remove("hide");
   scores.classList.remove("hide");
   enterToStart.classList.add("hide");
   totalScore.classList.remove("hide");
+  resetOrStart.classList.add("hide");
 
-  currentQuestion: 0;
+  currentQuestion  = 0;
   questionText.innerHTML = questions[currentQuestion].question;
   oneButton.innerHTML = questions[currentQuestion].answers[0];
   oneButton.onclick = () => {
     if (questions[currentQuestion].answer === 1) {
       score++;
-      correctAnswer.innerHTML = "You got that right!"
+      correctAnswer.innerHTML = "You got that right!";
     }
     else {
-      correctAnswer.innerHTML = "Wrong!"
+      correctAnswer.innerHTML = "Wrong!";
     }
     userScore.innerHTML = score;
     if (currentQuestion < questions.length - 1) {
