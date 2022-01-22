@@ -108,7 +108,7 @@ submitInitials.addEventListener("click", function(event) {
   resetOrStart.classList.remove("hide");
   enterInitials.classList.add("hide");
   timer.classList.add("hide");
-  restartGameButton.addEventListener("click", startQuiz);
+  // restartGameButton.addEventListener("click", startQuiz);
   score = 0;
   userScore.innerHTML = "0";
 });
@@ -129,6 +129,7 @@ function restartGame() {
 
 function stopTimer() {
   clearInterval(timerID);
+  timerID = null;
 }
 var timerID;
 
@@ -142,7 +143,7 @@ function startTimer() {
     }
     else {
       timer.textContent = "";
-      clearInterval;
+      clearInterval(timerID);
       showResults();
     }
   }, 1000);
