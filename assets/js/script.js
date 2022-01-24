@@ -102,6 +102,13 @@ submitInitials.addEventListener("click", function(event) {
     userScore: score,
     initials: initials.value
   }
+  // If user doesn't submit initials, alert them
+  if (initials.value === "") {
+    alert("You must input your initials");
+    return;
+  }
+
+// See if there is local storage for allScores object and if not, create it
   var allScores = JSON.parse(localStorage.getItem("allScores"));
   if (!allScores ) {
     allScores = [];
@@ -164,6 +171,8 @@ function startTimer() {
 }
 
 // The quiz starts by hiding some elements and bringing forward the questions 
+// If the user gets the correct answer, increment their score and tell them they got it right
+// Otherwise tell them they got it wrong
 function startQuiz() {
   startTimer();
   options.classList.remove("hide");
