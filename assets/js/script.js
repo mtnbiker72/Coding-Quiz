@@ -1,17 +1,26 @@
+// Define buttons to start game, answer buttons (1-4), and question text
 const enterButton = document.querySelector("#enter-button");
+const enterToStart = document.querySelector(".enter-to-start");
 const submitButton = document.querySelector("#submit");
 const oneButton = document.querySelector("#one");
 const twoButton = document.querySelector("#two");
 const threeButton = document.querySelector("#three");
 const fourButton = document.querySelector("#four");
 const options = document.querySelector(".options");
-const scores = document.querySelector(".scores");
+var questionText = document.querySelector(".question-text");
+
+// Define the container so we can use it to hide later
 const container = document.querySelector(".container");
-var enterToStart = document.querySelector(".enter-to-start");
+
+// Define score areas 
+const scores = document.querySelector(".scores");
 var userScore = document.querySelector("#user-score");
 var totalScore = document.querySelector("#total-score");
-var questionText = document.querySelector(".question-text");
+
+// Define timer 
 var timer = document.querySelector(".timer");
+
+// Define results, scores, and initials 
 var scoreBoard = document.querySelector(".score-board");
 var results = document.querySelector(".results");
 var correctAnswer = document.querySelector(".correct-answer");
@@ -22,6 +31,8 @@ var score = 0;
 var highScore = document.querySelector(".high-score");
 var number1Score = document.querySelector("#number1-score");
 var submitInitials = document.querySelector(".submit-initials");
+
+// Define after game selections of reset or restart game
 var resetGameButton = document.querySelector("#reset-button");
 var restartGameButton = document.querySelector("#restart-game-button");
 var resetOrStart = document.querySelector(".reset-or-start");
@@ -55,6 +66,7 @@ var questions = [
   }    
 ];
 
+// Define event listeners for submit/enter/reset/restart
 submitButton.addEventListener("click", submit);
 enterButton.addEventListener("click", startQuiz);
 resetGameButton.addEventListener("click", resetGame);
@@ -108,7 +120,6 @@ submitInitials.addEventListener("click", function(event) {
   resetOrStart.classList.remove("hide");
   enterInitials.classList.add("hide");
   timer.classList.add("hide");
-  // restartGameButton.addEventListener("click", startQuiz);
   score = 0;
   userScore.innerHTML = "0";
 });
@@ -121,17 +132,19 @@ function resetGame() {
   timer.classList.add("hide");
 }
 
+// Restart the game after it's been played once 
 function restartGame() {
   timer.classList.remove("hide");
   stopTimer();
   startQuiz();
 }
 
+// Stop the timer when called 
+var timerID;
 function stopTimer() {
   clearInterval(timerID);
   timerID = null;
 }
-var timerID;
 
 // Start a game timer
 function startTimer() {
@@ -150,7 +163,7 @@ function startTimer() {
   timer.classList.remove("hide"); 
 }
 
-
+// The quiz starts by hiding some elements and bringing forward the questions 
 function startQuiz() {
   startTimer();
   options.classList.remove("hide");
