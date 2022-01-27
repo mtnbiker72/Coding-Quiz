@@ -11,3 +11,7 @@ This assignment is to build a timed JavaScript code quiz.
  * The top 5 scores will be displayed
  * The user can clear the top scores at the end of the game
  * The user can restart the game and take it over
+
+![Getting Started](./assets/images/Shot1.png)
+![Getting Started](./assets/images/Shot2.png)
+![Getting Started](./assets/images/Shot3.png)
